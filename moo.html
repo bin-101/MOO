@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="moo.css">
+    <title>数当てゲーム</title>
+</head>
+<body>
+    <h1>数当てゲーム</h1>
+    <p>数を入力してください</p>
+    <body onKeyPress="Key_on(window.event.keyCode)"></body>
+    
+    <input type="text" id="input" size="10" maxlength="4" value="">
+    <button id="button">決定</button>
+    
+    <div id="result_area"></div>
+    <script src="moo.js"></script>
+</body>
+</html>
