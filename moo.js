@@ -39,11 +39,16 @@ function click(){
     
     if(bull!==4) return;
     const message=document.createElement('p');
-    message.innerText='おめでとう！';
+    if(count<=6) message.innerText='すごい！';
+    else if(count<=10) message.innerText='まあまあ';
+    else message.innerText='もっと頑張ろう！';
+    
     result_area.appendChild(message);
     const loop=document.createElement('button');
     loop.innerHTML='<button id="loop_button">もう一度遊ぶ</button>';
     result_area.appendChild(loop);
+
+    //loop_button
     loop_button.onclick=()=>{
         init();
     }
@@ -53,7 +58,7 @@ function init(){
     while (result_area.firstChild) { // 子どもの要素があるかぎり除去
         result_area.removeChild(result_area.firstChild);
     }
-
+    count=0;
     while(true){
         answer=[];
         for(let i=0;i<4;i++){
