@@ -3,6 +3,9 @@ const num_input=document.getElementById('input');
 const num_button=document.getElementById('button');
 const result_area=document.getElementById('result_area');
 
+let count=0;
+let answer;
+
 function click(){
     const num=num_input.value;
     num_input.value='';
@@ -14,6 +17,8 @@ function click(){
             if(num[i]==num[j]) return;
         }
     }
+
+    count++;
     
     let bull=0,cow=0;
     for(let i=0;i<4;i++){
@@ -28,32 +33,50 @@ function click(){
     //console.log(cow);
 
     const result=document.createElement('p');
-    result.innerText=num+'　'+bull+'　'+cow;
+    if(count<10) result.innerText='_';
+    result.innerText+=count+'  '+num+'　'+bull+'　'+cow;
     result_area.appendChild(result);
     
     if(bull!==4) return;
     const message=document.createElement('p');
-    message.innerText='おめでとう！\nもう一度遊ぶ場合はF5を押してね！';
+    message.innerText='おめでとう！';
     result_area.appendChild(message);
-
+    const loop=document.createElement('button');
+    loop.innerHTML='<button id="loop_button">もう一度遊ぶ</button>';
+    result_area.appendChild(loop);
+    loop_button.onclick=()=>{
+        init();
+    }
 }
 
-
-let answer;
-while(true){
-    answer=[];
-    for(let i=0;i<4;i++){
-        answer.push(Math.floor(Math.random()*10)-'0');
-
+function init(){
+    while (result_area.firstChild) { // 子どもの要素があるかぎり除去
+        result_area.removeChild(result_area.firstChild);
     }
-    let flag=true;
-    for(let i=0;i<4;i++){
-        for(let j=0;j<i;j++){
-            if(answer[i]==answer[j]) flag=false;
+
+    while(true){
+        answer=[];
+        for(let i=0;i<4;i++){
+            answer.push(Math.floor(Math.random()*10)-'0');
+    
         }
+        let flag=true;
+        for(let i=0;i<4;i++){
+            for(let j=0;j<i;j++){
+                if(answer[i]==answer[j]) flag=false;
+            }
+        }
+        if(flag) break;
     }
-    if(flag) break;
+    console.log(answer);
+    const header=document.createElement('p');
+    const t='1';
+    header.innerText='　数字　bull　cow';
+    result_area.appendChild(header);    
 }
+
+init();
+
 num_button.onclick=()=>{
     click();
 }
@@ -61,8 +84,3 @@ function Key_on(e){
     console.log(e);
     if(e=='13') click();
 }
-console.log(answer);
-const header=document.createElement('p');
-const t='1';
-header.innerText='数字　bull　cow';
-result_area.appendChild(header);
